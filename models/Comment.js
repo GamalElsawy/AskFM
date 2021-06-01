@@ -7,6 +7,11 @@ const commentSchema = mongoose.Schema({
     minlength: 1,
     maxlength: 500,
   },
+  post: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Post',
+    required: true,
+  },
   /*authorID: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',

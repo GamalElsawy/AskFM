@@ -29,46 +29,48 @@ exports.getComment = asyncHandler(async (req, res, next) => {
 });
 
 // @desc create new comment
-// @route POST URL/comments/postId
+// @route POST URL/comments/postId/posts
 // @access Private
-/*exports.createComment = asyncHandler(async (req, res, next) => {
+exports.createComment = asyncHandler(async (req, res, next) => {
+  req.body.post = req.params.postId;
   const comment = await Comment.create(req.body);
 
-  res.status(201).json({ success: true, data: post });
+  res.status(201).json({ success: true, data: comment });
 });
 
-// @desc update post
-// @route PUT URL/posts/:postId
+// @desc update comment
+// @route PUT URL/comments/:commentId
 // @access Private
-exports.updatePost = asyncHandler(async (req, res, next) => {
-  let post = await Post.findById(req.params.postId);
+exports.updateComment = asyncHandler(async (req, res, next) => {
+  let comment = await Comment.findById(req.params.commentId);
 
-  if (!post) {
+  if (!comment) {
     res.status(404).json({
       success: false,
-      message: `Thers is no post with ID: ${req.params.postId}`,
+      message: `Thers is no comment with ID: ${req.params.commentId}`,
     });
   } else {
-    post = await Post.findByIdAndUpdate(req.params.postId, req.body, {
+    comment = await Comment.findByIdAndUpdate(req.params.commentId, req.body, {
       new: true,
       runValidators: true,
     });
 
-    res.status(201).json({ success: true, data: post });
+    res.status(201).json({ success: true, data: comment });
   }
 });
 
-// @desc delete post
-// @route DELETE URL/posts/:postId
+// @desc delete comment
+// @route DELETE URL/comments/:commentId
 // @access Private
-exports.deletePost = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.postId);
+exports.deleteComment = asyncHandler(async (req, res, next) => {
+  const comment = await Comment.findById(req.params.commentId);
 
-  if (!post) {
-    res.status(404).json({ success: false, message: 'Post not found' });
+  if (!comment) {
+    res.status(404).json({ success: false, message: 'Comment not found' });
   } else {
-    await post.remove();
-    res.status(200).json({ success: true, data: 'Post deleted successfully' });
+    await comment.remove();
+    res
+      .status(200)
+      .json({ success: true, data: 'Comment deleted successfully' });
   }
 });
-*/
